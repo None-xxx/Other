@@ -1,0 +1,40 @@
+#include "a.h"
+#include<stdio.h>
+main()
+{	
+	double trans1() //由度分秒到弧度
+	{
+	double B1,B11,B12,B13,B111;
+	scanf("%lf°%lf′%lf″",&B11,&B12,&B13);
+	B111=fabs(B11); //B11可能为负值
+	B1=B111+B12/60.0+B13/3600.0;
+	B1=B1*atan(1)/45.0;
+	if(B11<0)
+		B1=-B1;
+	return B1;
+	}
+	void trans2(double B) //由弧度到度分秒并输出角度值
+	{
+	int a,b;
+	double B0;
+	B0=fabs(B); //B可能为负值
+	double c;
+	B0=B0*45.0/atan(1);
+	a=int(B0);
+	b=int((B0-a)*60);
+	c=(B0-a)*3600-b*60;
+	if((int)(c)==60) //为了避免出现59′60″这种情况，不过好像不起作用，不知道为什么,原来是int没有加括号
+	{
+		b=b+1;
+		c=0.0;
+		}
+if(b==60)
+{
+b=0;
+a=a+1;
+}
+if(B<0)
+a=-a;
+printf("%d°%d′%.4f″\n",a,b,c);
+}
+}
